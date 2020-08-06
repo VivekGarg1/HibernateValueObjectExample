@@ -2,6 +2,8 @@ package com.home.entities;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -38,7 +40,22 @@ public class Employee {
 	private double salary;
 	
 	@Embedded
-	private Address address;
+	@AttributeOverrides(value = { 
+			@AttributeOverride(column = @Column(name="home_street_name"), name = "street"),
+			@AttributeOverride(column = @Column(name="home_city_name"), name = "city"),
+			@AttributeOverride(column = @Column(name="home_state_name"), name = "state"),
+			@AttributeOverride(column = @Column(name="home_pin_code"), name = "pin")
+			})
+	private Address homeAddress;
+	
+	@Embedded
+	@AttributeOverrides(value = { 
+			@AttributeOverride(column = @Column(name="office_street_name"), name = "street"),
+			@AttributeOverride(column = @Column(name="office_city_name"), name = "city"),
+			@AttributeOverride(column = @Column(name="office_state_name"), name = "state"),
+			@AttributeOverride(column = @Column(name="office_pin_code"), name = "pin")
+			})
+	private Address officeAddress;
 	
 	public Integer getEmployeeId() {
 		return employeeId;
@@ -71,14 +88,18 @@ public class Employee {
 		this.salary = salary;
 	}
 	
-	public void setAddress(Address address) {
-		this.address = address;
+	public Address getHomeAddress() {
+		return homeAddress;
 	}
-	
-	public Address getAddress() {
-		return address;
+	public void setHomeAddress(Address homeAddress) {
+		this.homeAddress = homeAddress;
 	}
-	
+	public Address getOfficeAddress() {
+		return officeAddress;
+	}
+	public void setOfficeAddress(Address officeAddress) {
+		this.officeAddress = officeAddress;
+	}
 	@Override
 	public String toString() {
 		return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", email=" + email + ", doj="

@@ -56,17 +56,25 @@ public class ClientTest {
 	private static void createEmployee(Session session) {
 		session.beginTransaction();
 		Employee employee=new Employee();
-		employee.setEmployeeName("Paras");
-		employee.setEmail("paras@gmail.com");
+		employee.setEmployeeName("Vivek");
+		employee.setEmail("vivek@gmail.com");
 		employee.setDoj(new Date());
 		employee.setSalary(16000.00);
 		
-		Address address=new Address();
-		address.setCity("Bulandshahr");
-		address.setState("U.P");
-		address.setStreet("Hanuman Chowck");
-		address.setPin(123456L);
-		employee.setAddress(address);
+		Address homeAddress=new Address();
+		homeAddress.setCity("Bulandshahr");
+		homeAddress.setState("U.P");
+		homeAddress.setStreet("Hanuman Chowck");
+		homeAddress.setPin(123456L);
+		employee.setHomeAddress(homeAddress);
+		
+		Address officeAddress=new Address();
+		officeAddress.setCity("Hapur");
+		officeAddress.setState("U.P");
+		officeAddress.setStreet("Pakka bagh");
+		officeAddress.setPin(453456L);
+		employee.setOfficeAddress(officeAddress);
+		
 		session.save(employee);
 		session.getTransaction().commit();
 	}
